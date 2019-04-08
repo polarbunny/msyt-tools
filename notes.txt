@@ -1,0 +1,108 @@
+Message Standard Yaml Table notes by polarbunny. Thanks to jkcclemens!
+
+=====
+
+msyt is a YAML format specification for msbt files, allowing easy plaintext reading and writing.
+
+=====
+
+This archive contains a few scripts:
+
+    get-msyts.bat  - Exports msyt files from user supplied msbt files. In lue of that, it fetches vanilla msyt files instead.
+
+    pack-msyts.bat - Automatically converts and packs msyt files into Switch + WiiU Bootup_XXen.pack files.
+                     Additionally patches rstb, although not always necessary unless unpacked file size has increased.
+                     *** Requires Python 3.6+ 64bit, sarc and rstb ***
+
+=====
+
+Control Explanations:
+
+      - control:
+          kind: animation
+          name: Think_00        [string of animation to play on speaking npc]
+
+      - control:
+          kind: auto_advance    [pauses for amount of frames, then auto advances to next dialogue without needing button press]
+          frames: 101           [frames to wait]
+
+      - control:
+          kind: choice
+          choice_labels:
+            - 2                 [choice text pointer 0 (ex: 1 = "0001")]
+            - 3                 [choice text pointer 1 (ex: 1 = "0001")]
+            - 4                 [choice text pointer 2 (ex: 1 = "0001")]
+          selected_index: 1     [default cursor position (ex: 0 = pointer 0)]
+          cancel_index: 2       [what option 'B' button activates (ex: 2 = pointer 2)]
+          unknown: 8            [unknown]
+
+      - control:
+          kind: icon            [displays an icon in text]
+          icon: y               [icon to display (sometimes these have additional parameters. i don't currently understand them.)
+                                (some examples include: a, b, x, y, l, r, zl, zr, right_arrow, left_arrow, l_stick_press, r_stick_press
+                                 d_pad_down, d_pad_left, d_pad_up, d_pad_right, plus, minus)]
+
+      - control:
+          kind: pause           [pause text before continuing]
+          length: long          [options: short, long, longer]
+
+      - control:
+          kind: pause           [pause text before continuing]
+          frames: 20            [alternative to above: frames to wait. assuming 30fps probably?)
+
+      - control:
+          kind: set_colour      [sets color of text]
+          colour: blue          [options: blue, grey, light_green1, light_green4, light_grey, orange, red]
+
+      - control:
+          kind: reset_colour    [resets text color to default]
+
+      - control:
+          kind: sound
+          unknown:
+            - 0                 [maybe a sound effect pointer?]
+            - 0                 [unknown]
+
+      - control:
+          kind: sound2
+          unknown:
+            - 2                 [maybe a sound effect pointer?]
+            - 205               [unknown. usually 205 i think?]
+
+      - control:
+          kind: text_size       [set size of text]
+          percent: 100          [size of text (in percent)]
+
+      - control:
+          kind: variable           [displays a variable in text]
+          variable_kind: 19        [unknown]
+          name: Gerudo_CarryIce_s  [name of variable to display]
+
+=====
+
+Misc notes:
+
+    'text' strings should be surrounded with quotes if there is a blank space at the end of the string that needs to be included.
+        Example:
+
+        ...
+          - text: "That "
+          - control:
+              kind: set_colour
+              colour: blue
+          - text: "Sheikah heirloom "
+          - control:
+              kind: reset_colour
+        ...
+
+    Otherwise, it doesn't matter if quoted or not.
+
+    -----
+
+    'attributes' strings declare which npc is speaking the content within.
+
+    -----
+
+    '\n' denotes a newline in a 'text' string.
+
+    '\"' displays a quote without counting towards encapsulating strings.
