@@ -82,7 +82,7 @@ Control Explanations:
 
 Misc notes:
 
-    'text' strings should be surrounded with quotes if there is a blank space at the end of the string that needs to be included.
+    'text' strings should be surrounded with quotes if there is a blank space at the end or beginning of the string that needs to be included.
         Example:
 
         ...
