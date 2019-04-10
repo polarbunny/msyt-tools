@@ -9,6 +9,9 @@ echo.
 pause
 goto :eof )
 
+:Lock
+copy NUL lock.file > NUL
+
 :Check_Sarc
 for %%X in (sarc.exe) do ( set FOUND=%%~$PATH:X)
 if defined FOUND goto Check_Rstbtool
@@ -16,6 +19,7 @@ echo Could not find sarc.
 echo.
 echo Install with `pip install sarc`
 echo.
+del lock.file /Q
 pause
 goto :eof
 
@@ -26,6 +30,7 @@ echo Could not find rstbtool.
 echo.
 echo Install with `pip install rstb`
 echo.
+del lock.file /Q
 pause
 goto :eof
 
@@ -37,11 +42,12 @@ goto Check_Msbt
 :Check_RstbPANIC
 echo Can't find vanilla ResourceSizeTable.product.srsizetable.
 echo.
-echo Place vanilla ResourceSizeTable.product.srsizetable files into .\resources\[switch+wiiu]\ folders.
+echo Run setup-files.bat or place vanilla ResourceSizeTable.product.srsizetable files into .\resources\[switch+wiiu]\ folders.
 echo Example: .\resources\wiiu\ResourceSizeTable.product.srsizetable
 echo.
 echo Stopping.
 echo.
+del lock.file /Q
 pause
 goto :eof
 
@@ -54,7 +60,7 @@ if EXIST QuestMsg\*.msbt goto Check_MsbtPANIC
 if EXIST ShoutMsg\*.msbt goto Check_MsbtPANIC
 if EXIST StaticMsg\*.msbt goto Check_MsbtPANIC
 if EXIST Tips\*.msbt goto Check_MsbtPANIC
-goto Lock
+goto Make_Directories
 
 :Check_MsbtPANIC
 echo Warning. Existing msbt files detected.
@@ -64,11 +70,9 @@ echo Remove msbt files before continuing.
 echo.
 echo Stopping.
 echo.
+del lock.file /Q
 pause
 goto :eof
-
-:Lock
-copy NUL lock.file > NUL
 
 :Make_Directories
 echo Making Directories...

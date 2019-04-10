@@ -12,31 +12,10 @@ goto :eof )
 :Lock
 copy NUL lock.file > NUL
 
-:Check_Msyts
-if EXIST msyt\ActorType\*.msyt goto Existing_Msyts
-if EXIST msyt\DemoMsg\*.msyt goto Existing_Msyts
-if EXIST msyt\EventFlowMsg\*.msyt goto Existing_Msyts
-if EXIST msyt\LayoutMsg\*.msyt goto Existing_Msyts
-if EXIST msyt\QuestMsg\*.msyt goto Existing_Msyts
-if EXIST msyt\ShoutMsg\*.msyt goto Existing_Msyts
-if EXIST msyt\StaticMsg\*.msyt goto Existing_Msyts
-if EXIST msyt\Tips\*.msyt goto Existing_Msyts
-goto Check_Rstb
-
-:Existing_Msyts
-echo.
-echo Existing msyt files detected.
-echo.
-echo Stopping.
-echo.
-pause
-del lock.file /Q
-goto :eof
-
 :Check_Rstb
 if NOT EXIST resources\switch\ResourceSizeTable.product.srsizetable goto Get_Rstbs
 if NOT EXIST resources\wiiu\ResourceSizeTable.product.srsizetable goto Get_Rstbs
-goto Check_Msbts
+goto Check_Msyts
 
 :Get_Rstbs
 echo.
@@ -55,6 +34,24 @@ move ResourceSizeTable.product.srsizetable ..\resources\switch
 move ResourceSizeTable.product.srsizetable ..\resources\wiiu
 cd ..
 rmdir temp
+
+:Check_Msyts
+if EXIST msyt\ActorType\*.msyt goto Existing_Msyts
+if EXIST msyt\DemoMsg\*.msyt goto Existing_Msyts
+if EXIST msyt\EventFlowMsg\*.msyt goto Existing_Msyts
+if EXIST msyt\LayoutMsg\*.msyt goto Existing_Msyts
+if EXIST msyt\QuestMsg\*.msyt goto Existing_Msyts
+if EXIST msyt\ShoutMsg\*.msyt goto Existing_Msyts
+if EXIST msyt\StaticMsg\*.msyt goto Existing_Msyts
+if EXIST msyt\Tips\*.msyt goto Existing_Msyts
+goto Check_Msbts
+
+:Existing_Msyts
+echo.
+echo Existing msyt files detected.
+echo.
+echo Skipping.
+goto Done
 
 :Check_Msbts
 if EXIST msbt\ActorType\*.msbt goto Extract_Msbts
