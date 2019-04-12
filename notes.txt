@@ -21,79 +21,87 @@ Control Explanations:
 
       - control:
           kind: animation
-          name: Think_00        [string of animation to play on speaking npc]
+          name: Think_00        [String of animation to play on speaking npc.]
 
       - control:
-          kind: auto_advance    [pauses for amount of frames, then auto advances to next dialogue without needing button press]
-          frames: 101           [frames to wait]
+          kind: auto_advance    [Pauses for amount of frames, then auto advances to next dialogue without needing button press.]
+          frames: 101           [Frames to wait.]
 
       - control:
           kind: choice
           choice_labels:
-            - 2                 [choice text pointer 0 (ex: 1 = "0001")]
-            - 3                 [choice text pointer 1 (ex: 1 = "0001")]
-            - 4                 [choice text pointer 2 (ex: 1 = "0001")]
-          selected_index: 1     [default cursor position (ex: 0 = pointer 0)]
-          cancel_index: 2       [what option 'B' button activates (ex: 2 = pointer 2)]
-          unknown: 8            [unknown]
+            - 2                 [First choice text pointer (position 0) (ex: 2 = "0002")]
+            - 3                 [Choice text pointer (position 1) (ex: 3 = "0003")]
+            - 4                 [Choice text pointer (position 2) (ex: 4 = "0004")]
+              ...
+
+          selected_index: 0     [Default cursor position (ex: 0 = pointer 0)]
+          cancel_index: 2       [Which pointer position 'B' button activates (ex: 2 = pointer 2)]
+          unknown: 8            [Unknown]
 
       - control:
-          kind: icon            [displays an icon in text]
-          icon: y               [icon to display (sometimes these have additional parameters. i don't currently understand them.)
+          kind: icon            [Displays an icon in text.]
+          icon: y               [Icon to display (Each icon has multiple reference paramaters. In vanilla botw data these are
+                                 shown with numbers following the icon name. There is no known difference between references.)
                                 (some examples include: a, b, x, y, l, r, zl, zr, right_arrow, left_arrow, l_stick_press, r_stick_press
                                  d_pad_down, d_pad_left, d_pad_up, d_pad_right, plus, minus)]
 
       - control:
-          kind: pause           [pause text before continuing]
-          length: long          [options: short, long, longer]
+          kind: pause              [Pause text before continuing.]
+          length: long             [options: short, long, longer]
 
       - control:
-          kind: pause           [pause text before continuing]
-          frames: 20            [alternative to above: frames to wait. assuming 30fps probably?)
+          kind: pause              [Pause text before continuing.]
+          frames: 20               [Alternative to above: frames to wait. assuming 30fps probably?)
 
       - control:
-          kind: set_colour      [sets color of text]
-          colour: blue          [options: blue, grey, light_green1, light_green4, light_grey, orange, red]
+          kind: set_colour         [Sets color of text.]
+          colour: blue             [Options: blue, grey, light_green1, light_green4, light_grey, orange, red]
 
       - control:
-          kind: reset_colour    [resets text color to default]
+          kind: reset_colour       [Resets text color to default.]
 
       - control:
           kind: sound
           unknown:
-            - 0                 [maybe a sound effect pointer?]
-            - 0                 [unknown]
+            - 0                    [Maybe a sound effect pointer?]
+            - 0                    [Unknown]
 
       - control:
           kind: sound2
           unknown:
-            - 2                 [maybe a sound effect pointer?]
-            - 205               [unknown. usually 205 i think?]
+            - 2                    [Maybe a sound effect pointer?]
+            - 205                  [Unknown. usually 205 i think?]
 
       - control:
-          kind: text_size       [set size of text]
-          percent: 100          [size of text (in percent)]
+          kind: text_size          [Set size of text.]
+          percent: 100             [Size of text (in percent)]
 
       - control:
-          kind: variable           [displays a variable in text]
-          variable_kind: 19        [unknown]
-          name: Gerudo_CarryIce_s  [name of variable to display]
+          kind: variable           [Displays a variable in text.]
+          variable_kind: 19        [Unknown]
+          name: Gerudo_CarryIce_s  [Name of variable to display.]
 
 =====
 
 Misc notes:
 
-    'text' strings should be surrounded with quotes if there is a blank space at the end or beginning of the string that needs to be included.
+    'text' strings should be surrounded with quotes if you need a blank space at the beginning and/or end of the string preserved.
         Example:
 
         ...
           - text: "That "
+
           - control:
               kind: set_colour
               colour: blue
-          - text: "Sheikah heirloom "
+
+          - text: "Sheikah heirloom"
+
           - control:
               kind: reset_colour
+
+          - text: " has been guarded..."
         ...
 
     Otherwise, it doesn't matter if quoted or not.
