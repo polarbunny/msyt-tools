@@ -10,7 +10,11 @@ A toolset for working with BotW dialogue files via msyt.
 
 Usage:
 ------
-See - [notes.txt](../master/notes.txt)
+See - [notes.txt](../master/notes.txt) - Also included in `docs` folder in download.
+
+PDF Guide for Beginners / Visual Learners:
+------------------------------------------
+See - [msyt-tools-guide-v4.pdf](../master/docs/msyt-tools.guide-v4.pdf) - Also included in `docs` folder in download.
 
 Download:
 ---------
@@ -38,7 +42,6 @@ FAQ:
 
 Tools utilized:
 ---------------
-
 msyt - https://gitlab.com/jkcclemens/msyt/
   
 7z - https://www.7-zip.org/
