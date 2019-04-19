@@ -31,12 +31,11 @@ Control Explanations:
           kind: choice
           choice_labels:
             - 2                 [First choice text pointer (position 0) (ex: 2 = "0002")]
-            - 3                 [Choice text pointer (position 1) (ex: 3 = "0003")]
-            - 4                 [Choice text pointer (position 2) (ex: 4 = "0004")]
+            - 3                 [Second choice text pointer (position 1) (ex: 3 = "0003")]
+            - 4                 [Third choice text pointer (position 2) (ex: 4 = "0004")]
               ...
-
-          selected_index: 0     [Default cursor position (ex: 0 = pointer 0)]
-          cancel_index: 2       [Which pointer position 'B' button activates (ex: 2 = pointer 2)]
+          selected_index: 0     [Default cursor position (ex: 0 = position 0)]
+          cancel_index: 2       [Which pointer position 'B' button activates (ex: 2 = position 2)]
           unknown: 8            [Unknown]
 
       - control:
