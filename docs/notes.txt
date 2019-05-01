@@ -8,12 +8,12 @@ msyt is a YAML format specification for msbt files, allowing easy plaintext read
 
 This archive contains a few scripts:
 
-    setup-files.bat - Prepares required files, either exporting user supplied msbts (ex: .\msbt\ActorType\ArmorHead.msyt)
-                      or fetching vanilla files if necessary.
+    1_setup-files.bat - Prepares required files, either exporting user supplied msbts (ex: .\msbt\ActorType\ArmorHead.msyt)
+                        or fetching vanilla files if necessary.
 
-    pack-msyts.bat - Automatically converts and packs msyt files into Switch + WiiU Bootup_XXen.pack files.
-                     Additionally patches rstb, although not always necessary unless unpacked file size has increased.
-                     *** Requires Python 3.6+ 64bit, sarc and rstb ***
+    2_pack-msyts.bat - Automatically converts and packs msyt files into Switch + WiiU Bootup_XXen.pack files.
+                       Additionally patches rstb, although not always necessary unless unpacked file size has increased.
+                       *** Requires Python 3.6+ 64bit, sarc and rstb ***
 
 =====
 
