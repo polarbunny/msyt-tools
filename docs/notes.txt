@@ -39,6 +39,10 @@ Control Explanations:
           unknown: 8            [Unknown]
 
       - control:
+          kind: font            [Sets text font.]
+          font_kind: hylian     [Font to set (normal, hylian)]
+
+      - control:
           kind: icon            [Displays an icon in text.]
           icon: y               [Icon to display (Each icon has multiple reference paramaters. In vanilla botw data these are
                                  shown with numbers following the icon name. There is no known difference between references.)
@@ -59,6 +63,10 @@ Control Explanations:
 
       - control:
           kind: reset_colour       [Resets text color to default.]
+
+      - control:
+          kind: single_choice      [A choice with only one option.]
+          label: 5                 [Choice text pointer (ex: 5 = "0005")]
 
       - control:
           kind: sound
