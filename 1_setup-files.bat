@@ -5,7 +5,7 @@ rem Extract / fetch msyt files - by polarbunny
 if EXIST lock.file (
 echo Lock file detected.
 echo Stopping.
-echo.
+echo/
 pause
 goto :eof )
 
@@ -15,21 +15,24 @@ copy NUL lock.file > NUL
 :Check_Rstb
 if NOT EXIST resources\switch\ResourceSizeTable.product.srsizetable goto Get_Rstbs
 if NOT EXIST resources\wiiu\ResourceSizeTable.product.srsizetable goto Get_Rstbs
+echo/
+echo Existing rstb files detected.
+echo/
 goto Check_Msyts
 
 :Get_Rstbs
-echo.
-echo Can't find vanilla ResourceSizeTable.product.srsizetable files.
-echo.
-echo Making rstb dirs.
+echo/
+echo Can't find any existing ResourceSizeTable.product.srsizetable files.
+echo/
+echo Fetching rstbs...
+echo/
 mkdir resources\switch
 mkdir resources\wiiu
 mkdir temp
-echo.
-echo Fetching rstbs...
 cd temp
 ..\bin\curl.exe -LJO https://github.com/polarbunny/vanilla-1.5.0/raw/master/resources/switch/ResourceSizeTable.product.srsizetable
 move ResourceSizeTable.product.srsizetable ..\resources\switch
+echo/
 ..\bin\curl.exe -LJO https://github.com/polarbunny/vanilla-1.5.0/raw/master/resources/wiiu/ResourceSizeTable.product.srsizetable
 move ResourceSizeTable.product.srsizetable ..\resources\wiiu
 cd ..
@@ -44,12 +47,14 @@ if EXIST msyt\QuestMsg\*.msyt goto Existing_Msyts
 if EXIST msyt\ShoutMsg\*.msyt goto Existing_Msyts
 if EXIST msyt\StaticMsg\*.msyt goto Existing_Msyts
 if EXIST msyt\Tips\*.msyt goto Existing_Msyts
+echo/
+echo Can't find any existing 'msyt' files.
 goto Check_Msbts
 
 :Existing_Msyts
-echo.
+echo/
 echo Existing msyt files detected.
-echo.
+echo/
 echo Skipping.
 goto Done
 
@@ -65,23 +70,25 @@ if EXIST msbt\Tips\*.msbt goto Extract_Msbts
 goto Get_Msyts
 
 :Extract_Msbts
-echo.
+echo/
 echo Existing msbt files detected. Attempting to export.
+echo/
 bin\msyt.exe export -do msyt msbt
-echo.
+echo/
 echo Extracted msbts.
 goto Done
 
 :Get_Msyts
-echo.
-echo Fetching Msyt files.
-bin\curl.exe -LJO https://github.com/polarbunny/vanilla-1.5.0/releases/download/v1.0/msyt.7z
+echo/
+echo Fetching msyts...
+echo/
+bin\curl.exe -LJO https://github.com/polarbunny/vanilla-1.5.0/releases/download/v1.1/msyt.7z
 bin\7za.exe x msyt.7z
 del msyt.7z /Q
 
 :Done
-echo.
+echo/
 echo Done. Check for errors.
-echo.
+echo/
 del lock.file /Q
 @echo %CMDCMDLINE% | FIND /I /C "/C" > NUL && pause
