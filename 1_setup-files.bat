@@ -30,10 +30,10 @@ mkdir resources\switch
 mkdir resources\wiiu
 mkdir temp
 cd temp
-..\bin\curl.exe -LJO https://github.com/polarbunny/vanilla-1.5.0/raw/master/resources/switch/ResourceSizeTable.product.srsizetable
+..\bin\curl.exe -LJO https://github.com/polarbunny/vanilla-msyts/raw/master/resources/switch/ResourceSizeTable.product.srsizetable
 move ResourceSizeTable.product.srsizetable ..\resources\switch
 echo/
-..\bin\curl.exe -LJO https://github.com/polarbunny/vanilla-1.5.0/raw/master/resources/wiiu/ResourceSizeTable.product.srsizetable
+..\bin\curl.exe -LJO https://github.com/polarbunny/vanilla-msyts/raw/master/resources/wiiu/ResourceSizeTable.product.srsizetable
 move ResourceSizeTable.product.srsizetable ..\resources\wiiu
 cd ..
 rmdir temp
@@ -82,9 +82,9 @@ goto Done
 echo/
 echo Fetching msyts...
 echo/
-bin\curl.exe -LJO https://github.com/polarbunny/vanilla-1.5.0/releases/download/v1.1/msyt.7z
-bin\7za.exe x msyt.7z
-del msyt.7z /Q
+bin\curl.exe -LJO https://github.com/polarbunny/vanilla-msyts/releases/download/v1.6/Msg_XXen.product.7z
+bin\7za.exe x Msg_XXen.product.7z
+del Msg_XXen.product.7z /Q
 
 :Done
 echo/
