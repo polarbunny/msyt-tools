@@ -64,7 +64,7 @@ if EXIST QuestMsg\*.msbt goto Check_MsbtPANIC
 if EXIST ShoutMsg\*.msbt goto Check_MsbtPANIC
 if EXIST StaticMsg\*.msbt goto Check_MsbtPANIC
 if EXIST Tips\*.msbt goto Check_MsbtPANIC
-goto Make_Directories
+goto Check_Language
 
 :Check_MsbtPANIC
 echo/
@@ -79,13 +79,23 @@ del lock.file /Q
 pause
 goto :eof
 
+:Check_Language
+for %%i in (*.i18n) do set i18n=%%~ni
+if "%i18n%" == "" (
+echo i18n file not detected!
+echo Run 0_set_language.bat first.
+echo/
+pause
+del lock.file /Q
+goto :eof )
+
 :Make_Directories
 echo/
 echo Making Directories...
-mkdir !output\switch\Bootup_USen\Message
-mkdir !output\switch\Bootup_EUen\Message
-mkdir !output\wiiu\Bootup_USen\Message
-mkdir !output\wiiu\Bootup_EUen\Message
+mkdir !output\switch\Bootup_%i18n%\Message
+mkdir !output\switch\Bootup_%i18n%\Message
+mkdir !output\wiiu\Bootup_%i18n%\Message
+mkdir !output\wiiu\Bootup_%i18n%\Message
 mkdir temp\switch\ActorType
 mkdir temp\switch\DemoMsg
 mkdir temp\switch\EventFlowMsg
@@ -117,58 +127,58 @@ bin\msyt.exe create -dBp wiiu -o temp\wiiu msyt
 echo/
 echo Building and compressing Switch Msg_XXxx.product.ssarc...
 echo/
-sarc create temp\switch Msg_USen.product.ssarc
+sarc create temp\switch Msg_%i18n%.product.ssarc
 
 :Switch-Fix_Rstb
 echo/
 echo Patching Switch ResourceSizeTable...
 copy resources\switch\ResourceSizeTable.product.srsizetable ResourceSizeTable.product.srsizetable
-rstbtool ResourceSizeTable.product.srsizetable set Message/Msg_EUen.product.sarc Msg_USen.product.ssarc > rstb-changes.txt
+rstbtool ResourceSizeTable.product.srsizetable set Message/Msg_%i18n%.product.sarc Msg_%i18n%.product.ssarc > rstb-changes.txt
 echo/ >> rstb-changes.txt
-rstbtool ResourceSizeTable.product.srsizetable set Message/Msg_USen.product.sarc Msg_USen.product.ssarc >> rstb-changes.txt
+rstbtool ResourceSizeTable.product.srsizetable set Message/Msg_%i18n%.product.sarc Msg_%i18n%.product.ssarc >> rstb-changes.txt
 
 echo/
 echo Copying to !output\switch:
 move ResourceSizeTable.product.srsizetable !output\switch\
 move rstb-changes.txt !output\switch\
-copy Msg_USen.product.ssarc !output\switch\Bootup_EUen\Message\Msg_EUen.product.ssarc
-move Msg_USen.product.ssarc !output\switch\Bootup_USen\Message\
+copy Msg_%i18n%.product.ssarc !output\switch\Bootup_%i18n%\Message\Msg_%i18n%.product.ssarc
+move Msg_%i18n%.product.ssarc !output\switch\Bootup_%i18n%\Message\
 
 :WiiU-Build_Sarc
 echo/
 echo Building and compressing WiiU Msg_XXxx.product.ssarc...
 echo/
-sarc create -b temp\wiiu Msg_USen.product.ssarc
+sarc create -b temp\wiiu Msg_%i18n%.product.ssarc
 
 :WiiU-Fix_Rstb
 echo/
 echo Patching WiiU ResourceSizeTable...
 copy resources\wiiu\ResourceSizeTable.product.srsizetable ResourceSizeTable.product.srsizetable
-rstbtool -b ResourceSizeTable.product.srsizetable set Message/Msg_EUen.product.sarc Msg_USen.product.ssarc > rstb-changes.txt
+rstbtool -b ResourceSizeTable.product.srsizetable set Message/Msg_%i18n%.product.sarc Msg_%i18n%.product.ssarc > rstb-changes.txt
 echo/ >> rstb-changes.txt
-rstbtool -b ResourceSizeTable.product.srsizetable set Message/Msg_USen.product.sarc Msg_USen.product.ssarc >> rstb-changes.txt
+rstbtool -b ResourceSizeTable.product.srsizetable set Message/Msg_%i18n%.product.sarc Msg_%i18n%.product.ssarc >> rstb-changes.txt
 
 echo/
 echo Copying to !output\wiiu:
 move ResourceSizeTable.product.srsizetable !output\wiiu\
 move rstb-changes.txt !output\wiiu\
-copy Msg_USen.product.ssarc !output\wiiu\Bootup_EUen\Message\Msg_EUen.product.ssarc
-move Msg_USen.product.ssarc !output\wiiu\Bootup_USen\Message\
+copy Msg_%i18n%.product.ssarc !output\wiiu\Bootup_%i18n%\Message\Msg_%i18n%.product.ssarc
+move Msg_%i18n%.product.ssarc !output\wiiu\Bootup_%i18n%\Message\
 
 :Build_Packs
 echo/
 echo Building Switch Bootup_XXxx.pack...
 echo/
 cd !output\switch\
-sarc create Bootup_EUen Bootup_EUen.pack
-sarc create Bootup_USen Bootup_USen.pack
+sarc create Bootup_%i18n% Bootup_%i18n%.pack
+sarc create Bootup_%i18n% Bootup_%i18n%.pack
 
 echo/
 echo Building WiiU Bootup_XXxx.pack...
 echo/
 cd ..\wiiu\
-sarc create -b Bootup_EUen Bootup_EUen.pack
-sarc create -b Bootup_USen Bootup_USen.pack
+sarc create -b Bootup_%i18n% Bootup_%i18n%.pack
+sarc create -b Bootup_%i18n% Bootup_%i18n%.pack
 cd ..
 
 :Restructure_Output
@@ -179,21 +189,21 @@ mkdir switch\System\Resource
 mkdir wiiu\Pack
 mkdir wiiu\System\Resource
 
-move switch\Bootup_EUen.pack switch\Pack\Bootup_EUen.pack
-move switch\Bootup_USen.pack switch\Pack\Bootup_USen.pack
+move switch\Bootup_%i18n%.pack switch\Pack\Bootup_%i18n%.pack
+move switch\Bootup_%i18n%.pack switch\Pack\Bootup_%i18n%.pack
 move switch\ResourceSizeTable.product.srsizetable switch\System\Resource\ResourceSizeTable.product.srsizetable
-move wiiu\Bootup_EUen.pack wiiu\Pack\Bootup_EUen.pack
-move wiiu\Bootup_USen.pack wiiu\Pack\Bootup_USen.pack
+move wiiu\Bootup_%i18n%.pack wiiu\Pack\Bootup_%i18n%.pack
+move wiiu\Bootup_%i18n%.pack wiiu\Pack\Bootup_%i18n%.pack
 move wiiu\ResourceSizeTable.product.srsizetable wiiu\System\Resource\ResourceSizeTable.product.srsizetable
 
 :Delete_Mess
 echo/
 echo Deleting mess...
 rmdir ..\temp\ /S /Q
-rmdir switch\Bootup_USen\ /S /Q
-rmdir switch\Bootup_EUen\ /S /Q
-rmdir wiiu\Bootup_USen\ /S /Q
-rmdir wiiu\Bootup_EUen\ /S /Q
+rmdir switch\Bootup_%i18n%\ /S /Q
+rmdir switch\Bootup_%i18n%\ /S /Q
+rmdir wiiu\Bootup_%i18n%\ /S /Q
+rmdir wiiu\Bootup_%i18n%\ /S /Q
 cd..
 
 :Done

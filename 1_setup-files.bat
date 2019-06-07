@@ -67,7 +67,7 @@ if EXIST msbt\QuestMsg\*.msbt goto Extract_Msbts
 if EXIST msbt\ShoutMsg\*.msbt goto Extract_Msbts
 if EXIST msbt\StaticMsg\*.msbt goto Extract_Msbts
 if EXIST msbt\Tips\*.msbt goto Extract_Msbts
-goto Get_Msyts
+goto Check_Language
 
 :Extract_Msbts
 echo/
@@ -78,13 +78,23 @@ echo/
 echo Extracted msbts.
 goto Done
 
+:Check_Language
+for %%i in (*.i18n) do set i18n=%%~ni
+if "%i18n%" == "" (
+echo i18n file not detected!
+echo Run 0_set_language.bat first.
+echo/
+pause
+del lock.file /Q
+goto :eof )
+
 :Get_Msyts
 echo/
 echo Fetching msyts...
 echo/
-bin\curl.exe -LJO https://github.com/polarbunny/vanilla-msyts/releases/download/v1.6/Msg_XXen.product.7z
-bin\7za.exe x Msg_XXen.product.7z
-del Msg_XXen.product.7z /Q
+bin\curl.exe -LJO https://github.com/polarbunny/vanilla-msyts/releases/download/v1.6/Msg_%i18n%.product.7z
+bin\7za.exe x Msg_%i18n%.product.7z
+del Msg_%i18n%.product.7z /Q
 
 :Done
 echo/

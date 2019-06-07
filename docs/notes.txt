@@ -8,6 +8,8 @@ msyt is a YAML format specification for msbt files, allowing easy plaintext read
 
 This archive contains a few scripts:
 
+    0_set-language.bat - Run to Select the language of files you want to edit / pack into.
+
     1_setup-files.bat - Prepares required files, either exporting user supplied msbts (ex: .\msbt\ActorType\ArmorHead.msyt)
                         or fetching vanilla files if necessary.
 
