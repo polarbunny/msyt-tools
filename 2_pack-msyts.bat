@@ -93,8 +93,6 @@ goto :eof )
 echo/
 echo Making Directories...
 mkdir !output\switch\Bootup_%i18n%\Message
-mkdir !output\switch\Bootup_%i18n%\Message
-mkdir !output\wiiu\Bootup_%i18n%\Message
 mkdir !output\wiiu\Bootup_%i18n%\Message
 mkdir temp\switch\ActorType
 mkdir temp\switch\DemoMsg
@@ -134,14 +132,11 @@ echo/
 echo Patching Switch ResourceSizeTable...
 copy resources\switch\ResourceSizeTable.product.srsizetable ResourceSizeTable.product.srsizetable
 rstbtool ResourceSizeTable.product.srsizetable set Message/Msg_%i18n%.product.sarc Msg_%i18n%.product.ssarc > rstb-changes.txt
-echo/ >> rstb-changes.txt
-rstbtool ResourceSizeTable.product.srsizetable set Message/Msg_%i18n%.product.sarc Msg_%i18n%.product.ssarc >> rstb-changes.txt
 
 echo/
 echo Copying to !output\switch:
 move ResourceSizeTable.product.srsizetable !output\switch\
 move rstb-changes.txt !output\switch\
-copy Msg_%i18n%.product.ssarc !output\switch\Bootup_%i18n%\Message\Msg_%i18n%.product.ssarc
 move Msg_%i18n%.product.ssarc !output\switch\Bootup_%i18n%\Message\
 
 :WiiU-Build_Sarc
@@ -155,14 +150,11 @@ echo/
 echo Patching WiiU ResourceSizeTable...
 copy resources\wiiu\ResourceSizeTable.product.srsizetable ResourceSizeTable.product.srsizetable
 rstbtool -b ResourceSizeTable.product.srsizetable set Message/Msg_%i18n%.product.sarc Msg_%i18n%.product.ssarc > rstb-changes.txt
-echo/ >> rstb-changes.txt
-rstbtool -b ResourceSizeTable.product.srsizetable set Message/Msg_%i18n%.product.sarc Msg_%i18n%.product.ssarc >> rstb-changes.txt
 
 echo/
 echo Copying to !output\wiiu:
 move ResourceSizeTable.product.srsizetable !output\wiiu\
 move rstb-changes.txt !output\wiiu\
-copy Msg_%i18n%.product.ssarc !output\wiiu\Bootup_%i18n%\Message\Msg_%i18n%.product.ssarc
 move Msg_%i18n%.product.ssarc !output\wiiu\Bootup_%i18n%\Message\
 
 :Build_Packs
@@ -171,13 +163,11 @@ echo Building Switch Bootup_XXxx.pack...
 echo/
 cd !output\switch\
 sarc create Bootup_%i18n% Bootup_%i18n%.pack
-sarc create Bootup_%i18n% Bootup_%i18n%.pack
 
 echo/
 echo Building WiiU Bootup_XXxx.pack...
 echo/
 cd ..\wiiu\
-sarc create -b Bootup_%i18n% Bootup_%i18n%.pack
 sarc create -b Bootup_%i18n% Bootup_%i18n%.pack
 cd ..
 
@@ -190,9 +180,7 @@ mkdir wiiu\Pack
 mkdir wiiu\System\Resource
 
 move switch\Bootup_%i18n%.pack switch\Pack\Bootup_%i18n%.pack
-move switch\Bootup_%i18n%.pack switch\Pack\Bootup_%i18n%.pack
 move switch\ResourceSizeTable.product.srsizetable switch\System\Resource\ResourceSizeTable.product.srsizetable
-move wiiu\Bootup_%i18n%.pack wiiu\Pack\Bootup_%i18n%.pack
 move wiiu\Bootup_%i18n%.pack wiiu\Pack\Bootup_%i18n%.pack
 move wiiu\ResourceSizeTable.product.srsizetable wiiu\System\Resource\ResourceSizeTable.product.srsizetable
 
@@ -201,8 +189,6 @@ echo/
 echo Deleting mess...
 rmdir ..\temp\ /S /Q
 rmdir switch\Bootup_%i18n%\ /S /Q
-rmdir switch\Bootup_%i18n%\ /S /Q
-rmdir wiiu\Bootup_%i18n%\ /S /Q
 rmdir wiiu\Bootup_%i18n%\ /S /Q
 cd..
 

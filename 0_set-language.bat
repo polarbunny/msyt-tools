@@ -19,22 +19,23 @@ echo Languages:
 echo/
 echo 0  - CNzh
 echo 1  - EUde
-echo 2  - EUes
-echo 3  - EUfr
-echo 4  - EUit
-echo 5  - EUnl
-echo 6  - EUru
-echo 7  - JPja
-echo 8  - KRko
-echo 9  - TWzh
-echo 10 - USes
-echo 11 - USfr
-echo 12 - XXen 
+echo 2  - EUen
+echo 3  - EUes
+echo 4  - EUfr
+echo 5  - EUit
+echo 6  - EUnl
+echo 7  - EUru
+echo 8  - JPja
+echo 9  - KRko
+echo 10 - TWzh
+echo 11 - USen
+echo 12 - USes
+echo 13 - USfr
 echo/
 set /p input="Enter Selection: "
 
 :Process_Selection
-del /q *.i18n > NUL
+if exist *.i18n ( del /q *.i18n > NUL )
 if "%input%"=="0" (
 copy NUL CNzh.i18n > NUL
 goto Done
@@ -44,47 +45,51 @@ copy NUL EUde.i18n > NUL
 goto Done
 )
 if "%input%"=="2" (
-copy NUL EUes.i18n > NUL
+copy NUL EUen.i18n > NUL
 goto Done
 )
 if "%input%"=="3" (
-copy NUL EUfr.i18n > NUL
+copy NUL EUes.i18n > NUL
 goto Done
 )
 if "%input%"=="4" (
-copy NUL EUit.i18n > NUL
+copy NUL EUfr.i18n > NUL
 goto Done
 )
 if "%input%"=="5" (
-copy NUL EUnl.i18n > NUL
+copy NUL EUit.i18n > NUL
 goto Done
 )
 if "%input%"=="6" (
-copy NUL EUru.i18n > NUL
+copy NUL EUnl.i18n > NUL
 goto Done
 )
 if "%input%"=="7" (
-copy NUL JPja.i18n > NUL
+copy NUL EUru.i18n > NUL
 goto Done
 )
 if "%input%"=="8" (
-copy NUL KRko.i18n > NUL
+copy NUL JPja.i18n > NUL
 goto Done
 )
 if "%input%"=="9" (
-copy NUL TWzh.i18n > NUL
+copy NUL KRko.i18n > NUL
 goto Done
 )
 if "%input%"=="10" (
-copy NUL USes.i18n > NUL
+copy NUL TWzh.i18n > NUL
 goto Done
 )
 if "%input%"=="11" (
-copy NUL USfr.i18n > NUL
+copy NUL USen.i18n > NUL
 goto Done
 )
 if "%input%"=="12" (
-copy NUL XXen.i18n > NUL
+copy NUL USes.i18n > NUL
+goto Done
+)
+if "%input%"=="13" (
+copy NUL USfr.i18n > NUL
 goto Done
 )
 cls

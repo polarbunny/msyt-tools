@@ -24,7 +24,7 @@ goto Check_Msyts
 echo/
 echo Can't find any existing ResourceSizeTable.product.srsizetable files.
 echo/
-echo Fetching rstbs...
+echo Fetching rstbs instead.
 echo/
 mkdir resources\switch
 mkdir resources\wiiu
